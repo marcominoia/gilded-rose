@@ -20,4 +20,32 @@ public class GildedRoseTest {
         assertEquals(0, app.items[0].quality);
     }
 
+    @Test
+    public void testQualityDecreasesTwiceAfterSellByDate() {
+        Item[] items = new Item[] { new Item("myItem", 1, 3) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals("myItem", app.items[0].name);
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(2, app.items[0].quality);
+        app.updateQuality();
+        assertEquals("myItem", app.items[0].name);
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    public void testQualityIsNeverNegative() {
+        Item[] items = new Item[] { new Item("myItem", 0, 1) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals("myItem", app.items[0].name);
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+        app.updateQuality();
+        assertEquals("myItem", app.items[0].name);
+        assertEquals(-2, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+    }
+
 }
