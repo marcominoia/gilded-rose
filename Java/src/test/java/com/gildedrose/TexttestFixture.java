@@ -1,8 +1,34 @@
 package com.gildedrose;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class TexttestFixture {
-    public static void main(String[] args) {
-        System.out.println("Starting Gilded Rose");
+
+    private static int DEFAULT_NUMBER_OF_DAYS = 21;
+    private static String LINE_SEPARATOR_PROPERTY = "line.separator";
+
+    @Test
+    public void testAgainstOriginalOutput() throws URISyntaxException, IOException {
+        String expected = loadExpectedOutput();
+
+        String actual = buildTextOutput(DEFAULT_NUMBER_OF_DAYS);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    private static String buildTextOutput(int days){
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Starting Gilded Rose");
+        stringBuilder.append(System.getProperty(LINE_SEPARATOR_PROPERTY));
 
         Item[] items = new Item[] {
                 new Item("+5 Dexterity Vest", 10, 20), //
@@ -18,20 +44,38 @@ public class TexttestFixture {
 
         GildedRose app = new GildedRose(items);
 
-        int days = 2;
+
+        for (int i = 0; i < days; i++) {
+            stringBuilder.append("-------- day ");
+            stringBuilder.append(i);
+            stringBuilder.append(" --------");
+            stringBuilder.append(System.getProperty(LINE_SEPARATOR_PROPERTY));
+            stringBuilder.append("name, sellIn, quality");
+            stringBuilder.append(System.getProperty(LINE_SEPARATOR_PROPERTY));
+            for (Item item : items) {
+                stringBuilder.append(item);
+                stringBuilder.append(System.getProperty(LINE_SEPARATOR_PROPERTY));
+            }
+            stringBuilder.append(System.getProperty(LINE_SEPARATOR_PROPERTY));
+            app.updateQuality();
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private String loadExpectedOutput() throws URISyntaxException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resourceURL = classLoader.getResource("original_output_21_days.txt");
+        assert(resourceURL != null);
+        return new String(Files.readAllBytes(Paths.get(resourceURL.toURI())));
+    }
+
+    public static void main(String[] args) {
+        int days = 21;
         if (args.length > 0) {
             days = Integer.parseInt(args[0]) + 1;
         }
-
-        for (int i = 0; i < days; i++) {
-            System.out.println("-------- day " + i + " --------");
-            System.out.println("name, sellIn, quality");
-            for (Item item : items) {
-                System.out.println(item);
-            }
-            System.out.println();
-            app.updateQuality();
-        }
+        System.out.println(buildTextOutput(days));
     }
 
 }
