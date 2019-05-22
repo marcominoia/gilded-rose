@@ -6,7 +6,7 @@ class GildedRose {
     private static final String BACKSTAGE_PASSE = "Backstage passes to a TAFKAL80ETC concert";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
 
-    private Item[] items;
+    Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
