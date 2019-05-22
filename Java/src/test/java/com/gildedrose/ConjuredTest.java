@@ -22,15 +22,19 @@ public class ConjuredTest {
 
     @Test
     public void testConjuredQualityDecreasesByFourTimesAfterSellByDate() {
-        Item[] items = new Item[] { new Item("Conjured Mana Cake", 1, 8) };
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 1, 12) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals("Conjured Mana Cake", app.items[0].name);
         assertEquals(0, app.items[0].sellIn);
-        assertEquals(6, app.items[0].quality);
+        assertEquals(10, app.items[0].quality);
         app.updateQuality();
         assertEquals("Conjured Mana Cake", app.items[0].name);
         assertEquals(-1, app.items[0].sellIn);
+        assertEquals(6, app.items[0].quality);
+        app.updateQuality();
+        assertEquals("Conjured Mana Cake", app.items[0].name);
+        assertEquals(-2, app.items[0].sellIn);
         assertEquals(2, app.items[0].quality);
     }
 
