@@ -65,7 +65,7 @@ public class TexttestFixture {
 
     private String loadExpectedOutput() throws URISyntaxException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resourceURL = classLoader.getResource("original_output_21_days.txt");
+        URL resourceURL = classLoader.getResource("expected_text_output.txt");
         assert(resourceURL != null);
         return new String(Files.readAllBytes(Paths.get(resourceURL.toURI())));
     }
