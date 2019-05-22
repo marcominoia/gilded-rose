@@ -13,10 +13,10 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            updateItemQuality(items[i]);
+        for (Item item : items) {
+            updateItemQuality(item);
 
-            updateItemSellIn(items[i]);
+            updateItemSellIn(item);
         }
     }
 
@@ -63,7 +63,7 @@ class GildedRose {
                         }
                     }
                 } else {
-                    item.quality = item.quality - item.quality;
+                    item.quality = 0;
                 }
             } else {
                 if (item.quality < 50) {
