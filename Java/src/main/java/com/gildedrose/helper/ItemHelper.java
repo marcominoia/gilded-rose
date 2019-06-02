@@ -10,16 +10,32 @@ public class ItemHelper {
     return item.name.equals(AGED_BRIE);
   }
 
+  public static boolean isNotAgedBrie(Item item) {
+    return !item.name.equals(AGED_BRIE);
+  }
+
   public static  boolean isBackstagePasses(Item item) {
     return item.name.equals(BACKSTAGE_PASSE);
+  }
+
+  public static  boolean isNotBackstagePasses(Item item) {
+    return !item.name.equals(BACKSTAGE_PASSE);
   }
 
   public static boolean isSulfuras(Item item) {
     return item.name.equals(SULFURAS);
   }
 
+  public static boolean isNotSulfuras(Item item) {
+    return !item.name.equals(SULFURAS);
+  }
+
   public static boolean isConjured(Item item) {
-    return item.name.startsWith(CONJURED);
+    return item.name.equals(CONJURED);
+  }
+
+  public static boolean isNotConjured(Item item) {
+    return !item.name.equals(CONJURED);
   }
 
 }
